@@ -12,9 +12,9 @@ class CalculatorResults
     private array $positions = [];
 
     /**
-     * @var Cession[]
+     * @var Sale[]
      */
-    private array $cessions = [];
+    private array $sales = [];
 
     public function getPositions(): array
     {
@@ -35,13 +35,13 @@ class CalculatorResults
         $this->positions[$position->getCurrency()->value] = $position;
     }
 
-    public function getCessions(): array
+    public function getSales(): array
     {
-        return $this->cessions;
+        return $this->sales;
     }
 
-    public function addCession(Cession $cession): void
+    public function addSale(Sale $sale): void
     {
-        $this->cessions[] = $cession;
+        $this->sales[] = $sale;
     }
 }

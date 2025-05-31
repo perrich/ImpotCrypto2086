@@ -7,17 +7,17 @@ use App\Entities\CalculatorResults;
 class CalculatorResultsFormatter
 {
     private const NEGLIGIBLE_AMOUNT = 0.0001;
-    private CalculatorResults $calculator;
+    private CalculatorResults $calculatorResults;
 
-    public function __construct(CalculatorResults $calculator)
+    public function __construct(CalculatorResults $calculatorResults)
     {
-        $this->calculator = $calculator;
+        $this->calculatorResults = $calculatorResults;
     }
 
     public function format(): string
     {
         $output = "Positions actuelles :\n";
-        foreach ($this->calculator->getPositions() as $position) {
+        foreach ($this->calculatorResults->getPositions() as $position) {
             if ($position->getAmount() < self::NEGLIGIBLE_AMOUNT) {
                 continue;
             }
@@ -29,18 +29,18 @@ class CalculatorResultsFormatter
             );
         }
 
-        $output .= sprintf("\n\n%d Cessions :\n", count($this->calculator->getCessions()));
-        foreach ($this->calculator->getCessions() as $cession) {
+        $output .= sprintf("\n\n%d cessions :\n", count($this->calculatorResults->getSales()));
+        foreach ($this->calculatorResults->getSales() as $sale) {
             $output .= sprintf(
                 "Le %s, %s prix (213): %d, frais (214): %d, Valo ptf (212): %d, Total acq (220): %d, Fraction (221): %d, PV: %d\n",
-                $cession->getDate()->format('d/m/Y'),
-                $cession->getCurrency()->value,
-                $cession->getCessionAmount(),
-                $cession->getFeeAmount(),
-                $cession->getPortfolioTotalAmount(),
-                $cession->getTotalBought(),
-                $cession->getTotalSold(),
-                round($cession->getPnl(), 0)
+                $sale->getDate()->format('d/m/Y'),
+                $sale->getCurrency()->value,
+                $sale->getSaleAmount(),
+                $sale->getFeeAmount(),
+                $sale->getPortfolioTotalAmount(),
+                $sale->getTotalBought(),
+                $sale->getTotalSold(),
+                round($sale->getPnl(), 0)
             );
         }
  
@@ -58,11 +58,11 @@ class CalculatorResultsFormatter
     private function calculateTotalPnlByYear(): array
     {
         $totalPnl = [];
-        foreach ($this->calculator->getCessions() as $cession) {
-            if (!isset($totalPnl[$cession->getDate()->format('Y')])) {
-                $totalPnl[$cession->getDate()->format('Y')] = 0;
+        foreach ($this->calculatorResults->getSales() as $sale) {
+            if (!isset($totalPnl[$sale->getDate()->format('Y')])) {
+                $totalPnl[$sale->getDate()->format('Y')] = 0;
             }
-            $totalPnl[$cession->getDate()->format('Y')] += round($cession->getPnl(), 0);
+            $totalPnl[$sale->getDate()->format('Y')] += round($sale->getPnl(), 0);
         }
         return $totalPnl;
     }

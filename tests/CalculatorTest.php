@@ -3,7 +3,7 @@
 namespace App\Tests;
 
 use App\Calculator;
-use App\Entities\Cession;
+use App\Entities\Sale;
 use App\Entities\GlobalState;
 use App\Entities\Position;
 use App\Entities\Enums\Currency;
@@ -40,7 +40,7 @@ class CalculatorTest extends TestCase
         $this->assertEquals($expectedPositions['GRIN'], $calculatedPositions['GRIN']);
     }
 
-    public function testCalculateCessionsForTransactionWithoutFees()
+    public function testCalculateSalesForTransactionWithoutFees()
     {
         $transactionCsvFile = __DIR__ . '/data/transactions without fees test.csv';
         $priceCsvFile = __DIR__ . '/data/prices sample.csv';
@@ -57,10 +57,10 @@ class CalculatorTest extends TestCase
         $globalState = new GlobalState(34856, 8390);
         $this->assertEquals($globalState, $calculator->getGlobalState());
 
-        $calculatedCessions = $calculatorResults->getCessions();
+        $calculatedSales = $calculatorResults->getSales();
         
-        $this->assertCount(3, $calculatedCessions);
-        $this->assertEquals(new Cession(
+        $this->assertCount(3, $calculatedSales);
+        $this->assertEquals(new Sale(
             3744,
             0,
             Currency::BTC,
@@ -68,8 +68,8 @@ class CalculatorTest extends TestCase
             22464,
             25351,
             0
-        ), $calculatedCessions[0]);
-        $this->assertEquals(new Cession(
+        ), $calculatedSales[0]);
+        $this->assertEquals(new Sale(
             224,
             0,
             Currency::GRIN,
@@ -77,8 +77,8 @@ class CalculatorTest extends TestCase
             63103,
             34856,
             4225
-        ), $calculatedCessions[1]);
-        $this->assertEquals(new Cession(
+        ), $calculatedSales[1]);
+        $this->assertEquals(new Sale(
             10463,
             0,
             Currency::BTC,
@@ -86,10 +86,10 @@ class CalculatorTest extends TestCase
             78745,
             34856,
             4334
-        ), $calculatedCessions[2]);
+        ), $calculatedSales[2]);
     }
 
-    public function testCalculateCessionsForTransactionWithFees()
+    public function testCalculateSalesForTransactionWithFees()
     {
         $transactionCsvFile = __DIR__ . '/data/transactions with fees test.csv';
         $priceCsvFile = __DIR__ . '/data/prices sample.csv';
@@ -106,10 +106,10 @@ class CalculatorTest extends TestCase
         $globalState = new GlobalState(34749, 8338);
         $this->assertEquals($globalState, $calculator->getGlobalState());
 
-        $calculatedCessions = $calculatorResults->getCessions();
+        $calculatedSales = $calculatorResults->getSales();
         
-        $this->assertCount(2, $calculatedCessions);
-        $this->assertEquals(new Cession(
+        $this->assertCount(2, $calculatedSales);
+        $this->assertEquals(new Sale(
             3744,
             37,
             Currency::BTC,
@@ -117,8 +117,8 @@ class CalculatorTest extends TestCase
             22464,
             25376,
             0
-        ), $calculatedCessions[0]);
-        $this->assertEquals(new Cession(
+        ), $calculatedSales[0]);
+        $this->assertEquals(new Sale(
             10463,
             10,
             Currency::BTC,
@@ -126,6 +126,6 @@ class CalculatorTest extends TestCase
             78479,
             34749,
             4271
-        ), $calculatedCessions[1]);
+        ), $calculatedSales[1]);
     }
 }

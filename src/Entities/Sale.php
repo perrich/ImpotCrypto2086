@@ -5,9 +5,9 @@ namespace App\Entities;
 use \DateTimeImmutable;
 use App\Entities\Enums\Currency;
 
-class Cession
+class Sale
 {
-    private int $cession_amount;
+    private int $sale_amount;
     private int $fee_amount;
     private Currency $currency;
     private DateTimeImmutable $date;
@@ -16,7 +16,7 @@ class Cession
     private int $total_sold;
 
     public function __construct(
-        int $cession_amount,
+        int $sale_amount,
         int $fee_amount,
         Currency $currency,
         DateTimeImmutable $date,
@@ -24,7 +24,7 @@ class Cession
         int $total_bought,
         int $total_sold
     ) {
-        $this->cession_amount = $cession_amount;
+        $this->sale_amount = $sale_amount;
         $this->fee_amount = $fee_amount;
         $this->currency = $currency;
         $this->date = $date;
@@ -33,9 +33,9 @@ class Cession
         $this->total_sold = $total_sold;
     }
 
-    public function getCessionAmount(): int
+    public function getSaleAmount(): int
     {
-        return $this->cession_amount;
+        return $this->sale_amount;
     }
 
     public function getCurrency(): Currency
@@ -70,9 +70,9 @@ class Cession
 
     public function getPnl(): int
     {
-        $pnl = $this->getCessionAmount() - (
+        $pnl = $this->getSaleAmount() - (
             ($this->getTotalBought() - $this->getTotalSold())
-            * ($this->getCessionAmount() + $this->getFeeAmount()) / $this->getPortfolioTotalAmount());
+            * ($this->getSaleAmount() + $this->getFeeAmount()) / $this->getPortfolioTotalAmount());
 
         return round($pnl, 0);
     }

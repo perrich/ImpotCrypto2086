@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Entities\Cession;
+use App\Entities\Sale;
 use App\Entities\Position;
 use App\Entities\Transaction;
 use App\Entities\Enums\TransactionType;
@@ -32,7 +32,7 @@ class Calculator
     public function calculate(): CalculatorResults
     {
         foreach ($this->transactions as $transaction) {
-            $this->createCessionForSellTransaction($transaction);
+            $this->createSaleForSellTransaction($transaction);
             $this->managePosition($transaction);
             $this->manageGlobalstate($transaction);
         }
@@ -79,7 +79,7 @@ class Calculator
         }
     }
 
-    private function createCessionForSellTransaction(Transaction $transaction): void
+    private function createSaleForSellTransaction(Transaction $transaction): void
     {
         if ($transaction->getType() !== TransactionType::SELL) {
             return;
@@ -90,7 +90,7 @@ class Calculator
             $transaction->getDate()
         );
 
-        $cession = new Cession(
+        $sale = new Sale(
             round($transaction->getReceivedAmount(), 0),
             round($transaction->getFeeAmount(), 0),
             $transaction->getSentCurrency(),
@@ -100,12 +100,12 @@ class Calculator
             $this->globalState->getSoldAmount()
         );
 
-        // Update global state to include the cession
+        // Update global state to include the sale
         $this->globalState = new GlobalState(
             $this->globalState->getBoughtAmount(),
-            $this->globalState->getSoldAmount() - round($cession->getPnl(), 0)
+            $this->globalState->getSoldAmount() - round($sale->getPnl(), 0)
         );
 
-        $this->calculatorResults->addCession($cession);
+        $this->calculatorResults->addSale($sale);
     }
 }
