@@ -15,7 +15,6 @@ class PriceProviderFromCsv implements PriceProviderInterface
 
     /**
      * PriceProviderFromCsv constructor.
-     * @param PriceProviderInterface|null $priceProvider Optional price provider for fallback or additional functionality.
      * @param string $filename Path to the CSV file containing currency prices.
      * @param string $delimiter Delimiter used in the CSV file, default is ','.
      */

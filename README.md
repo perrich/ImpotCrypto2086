@@ -3,6 +3,11 @@ Calculs pour remplir la déclaration des plus ou moins-values réalisées suite 
 Ce script gère les frais de transactions, mais par les soultes.
 Seules les transactions en EUR sont gérées. Le format de fichier utilisé est celui de https://finary.com.
 
+
+## Prérequis
+
+Ce script nécessite PHP 8.4 et Composer.
+
 ## Comment s'en servir ?
 
 1. Placer un fichier CSV "transactions.csv" contenant vos transactions au format Finary dans le répertoire data.
@@ -23,7 +28,7 @@ Exemple du fichier prices.csv :
     ```
 3. Vérifier que vos cryptos sont bien gérées dans l'enum Currency ainsi que dans le mapping du PriceProviderFromCoinGeckoApi. Sinon, vous devrez les ajouter (proposer une PR :)).
 
-4. Lancer la commande ``php main.php``
+4. Lancer la commande classique ``composer install`` puis ``php main.php``
 
 5. Vous aller obtenir un résumé contenant les informations à saisir sur la déclaration (les numéros entre parenthèses sont ceux des cases à remplir).
 La première partie vous indique, pour information/contrôle, la quantité actuelle pour chaque crypto.
