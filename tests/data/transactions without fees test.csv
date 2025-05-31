@@ -1,0 +1,8 @@
+type,date,timezone,received_amount,received_currency,sent_amount,sent_currency,fee_amount,fee_currency,description,address,transaction_hash,external_id
+Trade,2017-07-17T15:26:21.720794186Z,GMT,5.0,BTC,9005.0,EUR,0,EUR,Buy,,,
+Trade,2017-12-17T19:42:16.265387957Z,GMT,1.0,BTC,16346,EUR,0,EUR,Buy,,,
+Trade,2019-01-09T19:44:35.262547360Z,GMT,3744,EUR,1,BTC,0,EUR,Sell,,,
+Trade,2019-03-24T19:42:16.265387957Z,GMT,2.5,BTC,9280,EUR,0,EUR,Buy,,,
+Trade,2019-03-27T19:42:16.265387957Z,GMT,100,GRIN,225,EUR,0,EUR,Buy,,,
+Trade,2019-06-16T19:44:35.262547360Z,GMT,224,EUR,50,GRIN,0,EUR,Sell,,,
+Trade,2019-06-25T19:44:35.262547360Z,GMT,10463,EUR,1,BTC,0,EUR,Sell,,,
