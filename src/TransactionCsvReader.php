@@ -40,9 +40,13 @@ class TransactionCsvReader
             throw new \InvalidArgumentException('Missing required fields in transaction data.');
         }
 
+        if (empty($data['description'])) {
+            $data['description'] = $data['type'];
+        }
+
         $type = TransactionType::tryFrom($data['description'] ?? '');
         if ($type === null) {
-            throw new \InvalidArgumentException('Invalid transaction type: ' . ($data['description'] ?? ''));
+            throw new \InvalidArgumentException('Invalid transaction type: "' . ($data['description'] ?? '') . '"');
         }
 
         return new Transaction(

@@ -7,5 +7,6 @@ enum TransactionType: string
     case BUY = 'Buy';
     case SELL = 'Sell';
     case SWAP = 'Swap';
+    case REWARD = 'Reward';
     case ADJUSTMENT = 'Adjustment';
 }
